@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:apron/splashscreen.dart";
+import "package:apron/apache_list.dart";
 
 void main(){
   runApp( 
@@ -9,7 +9,7 @@ void main(){
       theme: new ThemeData(
         primarySwatch: Colors.amber
       ),
-      home: SplashScreen(),
+      home: ApacheListPage(),
     )
   );
 }
