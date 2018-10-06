@@ -12,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState(){
     super.initState();
-    Timer(Duration(seconds: 4), () => Navigator.pushAndRemoveUntil(
+    Timer(Duration(seconds: 0), () => Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
         builder: (context) => DirPage(url: "http://intranet.daiict.ac.in/~daiict_nt01/")
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              color: Colors.orangeAccent
+              color: Colors.white
             )
           ),
           Column(
@@ -44,11 +44,11 @@ class _SplashScreenState extends State<SplashScreen> {
                       Text("Apron", style: TextStyle(
                         fontSize: 35.0,
                         fontWeight: FontWeight.bold, 
-                        color: Colors.white,
+                        color: Colors.amber,
                       )),
                       Text("Powered By Dash.", style: TextStyle(
                         fontSize: 16.0,
-                        color: Colors.white
+                        color: Colors.amber
                       ))
                     ]
                   )
