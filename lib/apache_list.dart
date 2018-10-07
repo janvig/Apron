@@ -32,32 +32,36 @@ class _ApacheListPageState extends State<ApacheListPage> {
       path,
       version: 1,
       onCreate: (Database db, int version) async {
-      // When creating the db, create the table
-      
-      await db.execute(
-        "CREATE TABLE Url (id INTEGER PRIMARY KEY, label TEXT, url TEXT)"
-      );
-    });
+        // When creating the db, create the table
+        
+        await db.execute(
+          "CREATE TABLE Url (id INTEGER PRIMARY KEY, label TEXT, url TEXT)"
+        );
+      }
+    );
 
     List<Map> list = await database.rawQuery("SELECT * FROM Url");
     print(list);
-
+    UrlList = {
+      "DA-IICT": "http://intranet.daiict.ac.in/~daiict_nt01/",
+      "Programming": "http://www.dblab.ntua.gr/~gtsat/collection/",
+      "CS-HUB": "http://www.csd.uwo.ca/courses/",
+      "General Science": "https://cyber.rms.moe/books/03 - General Science/",
+    };
+    collegeKeys = [];
     for(var item in list){
       setState(() {
-        UrlList = {
-          "DA-IICT": "http://intranet.daiict.ac.in/~daiict_nt01/",
-          "Programming": "http://www.dblab.ntua.gr/~gtsat/collection/",
-          "CS-HUB": "http://www.csd.uwo.ca/courses/",
-          "General Science": "https://cyber.rms.moe/books/03 - General Science/",
-        };
-
+        
         UrlList[item['label']] = item["url"];  
       }); 
     }
-    
     for(var college in UrlList.keys){
-      collegeKeys.add(college);
+      setState((){
+        collegeKeys.add(college);
+      });
+      
     }
+    
 
   }
 
