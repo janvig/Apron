@@ -82,7 +82,10 @@ class _ApacheListPageState extends State<ApacheListPage> {
       ),
       drawer: ApronDrawer(),
       body: Container(
-        margin: EdgeInsets.all(10.0),
+        padding: EdgeInsets.only(
+          top: 0.0,
+          bottom: 0.0,
+        ),
         child: ListView.builder(
           itemCount: collegeKeys.length,
           itemBuilder: (BuildContext context, int index){
@@ -95,6 +98,9 @@ class _ApacheListPageState extends State<ApacheListPage> {
               },
               title: Column(
                 children: <Widget>[
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   Row(
                     children: <Widget>[
                       Flexible(
@@ -115,9 +121,6 @@ class _ApacheListPageState extends State<ApacheListPage> {
                       )
                     ]
                   ),
-                  SizedBox(
-                    height: 30.0,
-                  )
                 ]
               )
             );
