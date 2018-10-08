@@ -130,7 +130,7 @@ class DirPageState extends State<DirPage> {
       });
     } catch(e) {
       setState((){
-        error = "Unable to get data: Check if you are connected to DA-Network.";
+        error = "Unable to get data: Check if your Internet is working.";
       });
     }
     return "Success";

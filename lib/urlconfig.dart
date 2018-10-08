@@ -149,7 +149,6 @@ class _URLConfigState extends State<URLConfig> {
                   onPressed: (){
                     
                     if(addData() == false){
-                      _neverSatisfied();
                     }
                   },
                 )
