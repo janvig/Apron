@@ -6,13 +6,11 @@ import "dart:async";
 
 class DirPage extends StatefulWidget {
 
-  String url;
+  final String url;
 
   DirPage({
-    String url
-  }){
-    this.url = url;
-  } 
+    this.url
+  });
 
   @override
   DirPageState createState() => new DirPageState(url: url);
