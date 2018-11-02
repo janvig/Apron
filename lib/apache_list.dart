@@ -13,12 +13,11 @@ class ApacheListPage extends StatefulWidget {
 
 class _ApacheListPageState extends State<ApacheListPage> {
 
-  Map<String, String> UrlList;
+  Map<String, String> urlList;
   List collegeKeys;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     collegeKeys = [];
     appSetup();
@@ -42,7 +41,7 @@ class _ApacheListPageState extends State<ApacheListPage> {
 
     List<Map> list = await database.rawQuery("SELECT * FROM Url");
     print(list);
-    UrlList = {
+    urlList = {
       "DA-IICT": "http://intranet.daiict.ac.in/~daiict_nt01/",
       "Programming": "http://www.dblab.ntua.gr/~gtsat/collection/",
       "CS-HUB": "http://www.csd.uwo.ca/courses/",
@@ -52,10 +51,10 @@ class _ApacheListPageState extends State<ApacheListPage> {
     for(var item in list){
       setState(() {
         
-        UrlList[item['label']] = item["url"];  
+        urlList[item['label']] = item["url"];  
       }); 
     }
-    for(var college in UrlList.keys){
+    for(var college in urlList.keys){
       setState((){
         collegeKeys.add(college);
       });
@@ -93,7 +92,7 @@ class _ApacheListPageState extends State<ApacheListPage> {
               onTap: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DirPage(url: UrlList[collegeKeys[index]])
+                  MaterialPageRoute(builder: (context) => DirPage(url: urlList[collegeKeys[index]])
                 ));
               },
               title: Column(
@@ -117,7 +116,7 @@ class _ApacheListPageState extends State<ApacheListPage> {
                   Row(
                     children: <Widget>[
                       Flexible(
-                        child: Text(UrlList[collegeKeys[index]])
+                        child: Text(urlList[collegeKeys[index]])
                       )
                     ]
                   ),
