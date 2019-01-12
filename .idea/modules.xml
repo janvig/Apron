@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/apron.iml" filepath="$PROJECT_DIR$/apron.iml" />
-      <module fileurl="file://$PROJECT_DIR$/apron_android.iml" filepath="$PROJECT_DIR$/apron_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/apron_android.iml" filepath="$PROJECT_DIR$/android/apron_android.iml" />
     </modules>
   </component>
 </project>
