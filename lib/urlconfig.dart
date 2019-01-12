@@ -9,7 +9,7 @@ class URLConfig extends StatefulWidget {
 }
 
 class _URLConfigState extends State<URLConfig> {
-  List<Map> Data = [];
+  List<Map> data = [];
   final labelController = TextEditingController();
   final urlController = TextEditingController();
 
@@ -45,7 +45,7 @@ class _URLConfigState extends State<URLConfig> {
 
     print(list);
     setState((){
-      Data = list;
+      data = list;
     });
 
   }
@@ -99,11 +99,6 @@ class _URLConfigState extends State<URLConfig> {
     if(list.length == 0){
       // if url does not exist
       await database.transaction((txn) async {
-
-        int id = await txn.rawInsert(
-          "INSERT INTO Url (label, url) VALUES ('$_label', '$_url')"
-        );
-
         getData();
       });
 
@@ -147,9 +142,6 @@ class _URLConfigState extends State<URLConfig> {
                   icon: Icon(Icons.add_box),
                   iconSize: 30.0,
                   onPressed: (){
-                    
-                    if(addData() == false){
-                    }
                   },
                 )
               ]
@@ -159,11 +151,11 @@ class _URLConfigState extends State<URLConfig> {
             ),
             Flexible(
               child: ListView.builder(
-                itemCount: Data.length,
+                itemCount: data.length,
                 itemBuilder: (BuildContext context, int index){
                   return ActionChip(
                     onPressed: (){
-                      var _label = Data[index]["label"];
+                      var _label = data[index]["label"];
                       removeData(_label);
                       print("Hello");
                     },
@@ -171,7 +163,7 @@ class _URLConfigState extends State<URLConfig> {
                       backgroundColor: Colors.amber,
                       child: new Icon(Icons.remove_circle)
                     ),
-                    label: new Text(Data[index]["label"])
+                    label: new Text(data[index]["label"])
                   );
                 },
               )
