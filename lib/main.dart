@@ -9,8 +9,9 @@ void main(){
       theme: new ThemeData(
         primarySwatch: Colors.amber
       ),
-      home: ApacheListPage(),
+      home: Scaffold(
+        body: Center(child: ApacheListPage()),
+      ),
     )
   );
 }
-
