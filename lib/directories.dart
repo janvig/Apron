@@ -3,6 +3,7 @@ import "package:apron/drawer.dart";
 import 'package:url_launcher/url_launcher.dart';
 import "package:http/http.dart" as http;
 import "dart:async";
+import 'package:apron/apron_widgets.dart';
 
 class DirPage extends StatefulWidget {
 
@@ -19,9 +20,13 @@ class DirPage extends StatefulWidget {
 
 
 class DirPageState extends State<DirPage> {
+
   List data;
   String url;
-  String error;
+  Map<String,dynamic> prop = {
+    'loading' : 0,
+    'error' : ''
+  };
 
   @override
   void initState(){
@@ -34,12 +39,15 @@ class DirPageState extends State<DirPage> {
     String error
   }){
     this.url = url;
-    this.error = "";
   }
 
   Future<String> getData() async {
     String intranetURL = url;
     print(url);
+
+    setState(() {
+      prop['loading'] = 0;
+    });
 
     try {
 
@@ -51,7 +59,8 @@ class DirPageState extends State<DirPage> {
           }
         } else {
           setState((){
-            error = "Error Opening this file.";
+            prop['error'] = "Error Opening this file.";
+            prop['loading'] = -1;
           });
         }
       }
@@ -124,11 +133,13 @@ class DirPageState extends State<DirPage> {
 
       setState((){
         data = dirList;
-        error = dirList.length == 0 ? "Empty Directory" : "";
+        prop['error'] = dirList.length == 0 ? "Empty Directory" : "";
+        prop['loading'] = dirList.length == 0 ? -1 : 1;
       });
     } catch(e) {
       setState((){
-        error = "Unable to get data: Check if your Internet is working.";
+        prop['error'] = "Unable to get data: Check if your Internet is working.";
+        prop['loading'] = -1;
       });
     }
     return "Success";
@@ -148,13 +159,12 @@ class DirPageState extends State<DirPage> {
       ),
       drawer: ApronDrawer(),
       body: RefreshIndicator(
-        child: error.length == 0 ? ListView.builder(
+        child: prop['loading'] == 1 ? ListView.builder(
           itemCount: data == null ? 0 : data.length,
           itemBuilder: (BuildContext context, int index){
             var item = data[index];
             return Container(
               child: ListTile(
-                
                 title: new Column(
                   children: <Widget>[
                     new Row(
@@ -191,17 +201,31 @@ class DirPageState extends State<DirPage> {
               )
             );
           }
-        ) : Center(
-          child: Text(
-            error,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            )
-          )
-        ),
+        ) : Screen(state: prop,),
         onRefresh: getData,
       )
     );
   }
 }
+
+class Screen extends StatelessWidget {
+
+  final dynamic state;
+
+  Screen({this.state});
+
+  @override
+  Widget build(BuildContext context) {
+    if(state["loading"] == 0){
+      return Center(
+        child: LoadingWidget(),
+      );
+    }
+    else {
+      return Center(
+        child: InternetLostWidget(state["error"])
+      );
+    }
+  }
+}
+
